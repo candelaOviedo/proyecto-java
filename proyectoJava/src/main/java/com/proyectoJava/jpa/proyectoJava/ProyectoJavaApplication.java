@@ -22,8 +22,6 @@ public class ProyectoJavaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		System.out.println("Usando JPA");
-
 		//Devuelve lista de libros (LibroService):
 		for (Libro li : libroService.getAllLibros()) {
 			System.out.println(li);

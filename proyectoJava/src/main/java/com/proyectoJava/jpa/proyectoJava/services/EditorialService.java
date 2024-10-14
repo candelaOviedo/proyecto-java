@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class EditorialService {
 
-    private final EditorialRepository editorialRepository;
+    private EditorialRepository editorialRepository;
 
     @Autowired
     public EditorialService(EditorialRepository editorialRepository) {

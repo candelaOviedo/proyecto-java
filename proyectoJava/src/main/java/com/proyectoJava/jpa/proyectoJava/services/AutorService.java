@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class AutorService {
 
-    private final AutorRepository autorRepository;
+    private AutorRepository autorRepository;
 
     @Autowired
     public AutorService(AutorRepository autorRepository) {

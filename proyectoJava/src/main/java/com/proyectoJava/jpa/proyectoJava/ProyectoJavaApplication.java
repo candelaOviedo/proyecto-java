@@ -12,7 +12,7 @@ import com.proyectoJava.jpa.proyectoJava.services.LibroService;
 public class ProyectoJavaApplication implements CommandLineRunner {
 
 	@Autowired
-	LibroService libroService;
+	private LibroService libroService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoJavaApplication.class, args);
@@ -23,8 +23,9 @@ public class ProyectoJavaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		//Devuelve lista de libros (LibroService):
-		for (Libro li : libroService.getAllLibros()) {
-			System.out.println(li);
+		System.out.println("Muestro todos los clientes");
+		for (Libro l : libroService.getAllLibros()) {
+			System.out.println(l);
 		}
 
 

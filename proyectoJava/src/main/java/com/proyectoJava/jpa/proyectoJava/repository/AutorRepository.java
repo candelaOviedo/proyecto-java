@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {
 
+    Autor findByApellido(String apellido);
+
 }

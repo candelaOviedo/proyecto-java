@@ -17,8 +17,19 @@ public class AutorService {
         this.autorRepository = autorRepository;
     }
 
-    public List<Autor> findAll() {
-        return autorRepository.findAll();
+
+   // Obtener todos los autores
+    public List<Autor> getAllAutores() {
+    return autorRepository.findAll();
+}
+
+// Agregar un nuevo autor
+public void agregarAutor(Autor autor) {
+    Autor a = this.autorRepository.findByApellido(autor.getApellido());
+    if (a != null) {
+        throw new IllegalArgumentException("El autor con este apellido ya existe");
     }
+    this.autorRepository.save(autor);
+}
 
 }

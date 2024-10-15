@@ -10,31 +10,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyectoJava.jpa.proyectoJava.model.Autor;
-import com.proyectoJava.jpa.proyectoJava.services.AutorService;
+import com.proyectoJava.jpa.proyectoJava.model.Editorial;
+import com.proyectoJava.jpa.proyectoJava.services.EditorialService;
 
 @RestController
-@RequestMapping("/autor")
-public class AutorController {
+@RequestMapping("/editorial")
+public class EditorialController {
 
     @Autowired
-    private AutorService autorService;
+    private EditorialService editorialService;
 
-    // Devuelve todos los autores
+    // Devuelve todas las editoriales
     @GetMapping("/all")
-    public List<Autor> getAllAutores() {
-        return autorService.getAllAutores();
+    public List<Editorial> getAllEditoriales() {
+        return editorialService.getAllEditoriales();
     }
 
-    // Crear un nuevo autor
+    // Crear una nueva editorial
     @PostMapping("/create")
-    public ResponseEntity<?> agregarAutor(@RequestBody Autor autor) {
+    public ResponseEntity<?> agregarEditorial(@RequestBody Editorial editorial) {
         try {
-            autorService.agregarAutor(autor);
-            return ResponseEntity.ok(autor);
+            editorialService.agregarEditorial(editorial);
+            return ResponseEntity.ok(editorial);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("Error: " + e.getMessage());
         }
     }
-
 }

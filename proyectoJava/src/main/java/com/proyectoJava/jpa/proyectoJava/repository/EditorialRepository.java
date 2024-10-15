@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EditorialRepository extends JpaRepository<Editorial, Long> {
-
+    Editorial findByNombre(String nombre);
 }

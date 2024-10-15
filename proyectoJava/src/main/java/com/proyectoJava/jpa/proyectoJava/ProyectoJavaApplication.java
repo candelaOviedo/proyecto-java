@@ -23,7 +23,7 @@ public class ProyectoJavaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		//Devuelve lista de libros (LibroService):
-		System.out.println("Muestro todos los clientes");
+		System.out.println("Muestro todos los libros");
 		for (Libro l : libroService.getAllLibros()) {
 			System.out.println(l);
 		}

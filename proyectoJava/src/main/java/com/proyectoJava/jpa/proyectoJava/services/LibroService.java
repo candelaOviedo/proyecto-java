@@ -24,6 +24,8 @@ public List<Libro> getAllLibros() {
     return libroRepository.findAll();
 }
 
-
+public void creandoLibro (Libro l){
+    this.libroRepository.save (l);
+}
 
 }

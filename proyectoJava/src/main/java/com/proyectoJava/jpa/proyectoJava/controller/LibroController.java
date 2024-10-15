@@ -3,7 +3,6 @@ package com.proyectoJava.jpa.proyectoJava.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +29,13 @@ public class LibroController {
     //crear libro
     @PostMapping ("/create")
     public ResponseEntity<?> agregarLibro (@RequestBody Libro libro){
-        this.libroService.creandoLibro(libro);
-        return new ResponseEntity<>("CREATED", HttpStatus.CREATED);
+      try {
+        this.libroService.agregarLibro(libro);
+        return ResponseEntity.ok(libro);
+      } catch (Exception e) {
+        System.out.println( "Error: " + e.getMessage());
+        return ResponseEntity.status(400).body(e.getMessage());
+      }
     }
 
 }

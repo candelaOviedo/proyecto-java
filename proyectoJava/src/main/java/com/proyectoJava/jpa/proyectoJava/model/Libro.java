@@ -7,8 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,13 +28,15 @@ public class Libro {
     @Column(nullable = false)
     private String titulo;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id", nullable = false)
-    private Autor autor;
 
-    @ManyToOne
-    @JoinColumn(name = "editorial_id", nullable = false)
-    private Editorial editorial;
+    
+    @Column(nullable = false)
+    private String autor;
+
+
+
+    @Column(nullable = false)
+    private String editorial;
 
     private int publicacion;
 
@@ -49,7 +49,7 @@ public class Libro {
 
 
 
-    public Libro(String titulo, Autor autor, Editorial editorial,
+    public Libro(String titulo, String autor, String editorial,
             int publicacion, GeneroLiterario genero, double precio) {
         this.titulo = titulo;
         this.autor = autor;

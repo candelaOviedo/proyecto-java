@@ -27,12 +27,22 @@ public List<Libro> getAllLibros() {
     return libroRepository.findAll();
 }
 
+//buscar libro por titulo
+public List<Libro> getLibroByTitulo (String titulo) {
+return this.libroRepository.findByTitulo(titulo);
+}
+
 public void agregarLibro (Libro libro){
-    Libro l = this.libroRepository.findByTitulo (libro.getTitulo());
+    List<Libro> l = this.libroRepository.findByTitulo (libro.getTitulo());
     if (l != null) {
         throw new IllegalIdentifierException("El libro ya existe");
     }
     this.libroRepository.save (libro);
 }
+
+    // Eliminar un libro por su ID
+    public void eliminarLibro(Long id) {
+        libroRepository.deleteById(id);
+    }
 
 }

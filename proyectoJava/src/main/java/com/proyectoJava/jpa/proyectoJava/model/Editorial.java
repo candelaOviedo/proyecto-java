@@ -28,14 +28,14 @@ public class Editorial {
     private String direccion;
 
     @Column(nullable = false)
-    private String telefono;
+    private Long telefono;
 
     @Column(nullable = false)
     private String email;
 
 
 
-    public Editorial(String nombre, String direccion, String telefono, String email) {
+    public Editorial(String nombre, String direccion, Long telefono, String email) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;

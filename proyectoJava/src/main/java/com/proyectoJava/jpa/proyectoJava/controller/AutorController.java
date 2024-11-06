@@ -1,41 +1,43 @@
 package com.proyectoJava.jpa.proyectoJava.controller;
 
+import com.proyectoJava.jpa.proyectoJava.dto.AutorDTO;
+import com.proyectoJava.jpa.proyectoJava.services.AutorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.proyectoJava.jpa.proyectoJava.model.Autor;
-import com.proyectoJava.jpa.proyectoJava.services.AutorService;
-
 @RestController
-@RequestMapping("/autor")
+@RequestMapping("/api/autores")
 public class AutorController {
 
     @Autowired
     private AutorService autorService;
 
-    // Devuelve todos los autores
-    @GetMapping("/all")
-    public List<Autor> getAllAutores() {
-        return autorService.getAllAutores();
+    // Obtener todos los autores
+    @GetMapping
+    public List<AutorDTO> obtenerTodos() {
+        return autorService.obtenerTodos();
     }
 
-
-    // Crear un nuevo autor
-    @PostMapping("/create")
-    public ResponseEntity<?> agregarAutor(@RequestBody Autor autor) {
-        try {
-            autorService.agregarAutor(autor);
-            return ResponseEntity.ok(autor);
-        } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error: " + e.getMessage());
-        }
+    // Obtener un autor por ID
+    @GetMapping("/{id}")
+    public AutorDTO obtenerPorId(@PathVariable Long id) {
+        return autorService.obtenerPorId(id);
     }
 
+    // Crear o actualizar un autor
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public AutorDTO crearOActualizar(@RequestBody AutorDTO autorDTO) {
+        return autorService.crearOActualizar(autorDTO);
+    }
+
+    // Eliminar un autor
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        autorService.eliminar(id);
+    }
 }

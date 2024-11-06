@@ -1,39 +1,35 @@
 package com.proyectoJava.jpa.proyectoJava.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.proyectoJava.jpa.proyectoJava.model.Editorial;
+import com.proyectoJava.jpa.proyectoJava.dto.EditorialDTO;
 import com.proyectoJava.jpa.proyectoJava.services.EditorialService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/editorial")
+@RequestMapping("/editoriales")
 public class EditorialController {
 
     @Autowired
     private EditorialService editorialService;
 
-    // Devuelve todas las editoriales
-    @GetMapping("/all")
-    public List<Editorial> getAllEditoriales() {
-        return editorialService.getAllEditoriales();
+    // Crea o actualiza una editorial
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public EditorialDTO crearOActualizar(@RequestBody EditorialDTO editorialDTO) {
+        return editorialService.crearOActualizar(editorialDTO);
     }
 
-    // Crear una nueva editorial
-    @PostMapping("/create")
-    public ResponseEntity<?> agregarEditorial(@RequestBody Editorial editorial) {
-        try {
-            editorialService.agregarEditorial(editorial);
-            return ResponseEntity.ok(editorial);
-        } catch (Exception e) {
-            return ResponseEntity.status(400).body("Error: " + e.getMessage());
-        }
+    // Obtiene una editorial por ID
+    @GetMapping("/{id}")
+    public EditorialDTO obtenerPorId(@PathVariable Long id) {
+        return editorialService.obtenerPorId(id);
+    }
+
+    // Elimina una editorial por ID
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        editorialService.eliminar(id);
     }
 }

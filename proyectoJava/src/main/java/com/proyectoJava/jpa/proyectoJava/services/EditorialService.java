@@ -1,34 +1,36 @@
 package com.proyectoJava.jpa.proyectoJava.services;
 
+import com.proyectoJava.jpa.proyectoJava.dto.EditorialDTO;
+import com.proyectoJava.jpa.proyectoJava.mapper.EditorialMapper;
 import com.proyectoJava.jpa.proyectoJava.model.Editorial;
 import com.proyectoJava.jpa.proyectoJava.repository.EditorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-
 @Service
 public class EditorialService {
 
+    @Autowired
     private EditorialRepository editorialRepository;
 
     @Autowired
-    public EditorialService(EditorialRepository editorialRepository) {
-        this.editorialRepository = editorialRepository;
+    private EditorialMapper editorialMapper;
+
+    // Crea o actualiza una editorial
+    public EditorialDTO crearOActualizar(EditorialDTO editorialDTO) {
+        Editorial editorial = editorialMapper.toEntity(editorialDTO);
+        editorial = editorialRepository.save(editorial);  // Save maneja crear o actualizar
+        return editorialMapper.toDTO(editorial);
     }
 
-    public List<Editorial> getAllEditoriales() {
-        return editorialRepository.findAll();
+    // Obtiene una editorial por su ID
+    public EditorialDTO obtenerPorId(Long id) {
+        Editorial editorial = editorialRepository.findById(id).orElseThrow(() -> new RuntimeException("Editorial no encontrada"));
+        return editorialMapper.toDTO(editorial);
     }
 
-    public void agregarEditorial(Editorial editorial) {
-        Editorial e = this.editorialRepository.findByNombre(editorial.getNombre());
-        if (e != null) {
-            throw new IllegalArgumentException("La editorial ya existe");
-        }
-        this.editorialRepository.save(editorial);
+    // Elimina una editorial por su ID
+    public void eliminar(Long id) {
+        editorialRepository.deleteById(id);
     }
-
-
 }

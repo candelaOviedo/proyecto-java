@@ -47,18 +47,20 @@ public class Libro {
     @Column(nullable = false)
     private double precio;
 
+    @Column(nullable = false)
+    private int stock;
 
 
-    public Libro(String titulo, Autor autor, Editorial editorial,
-            int publicacion, GeneroLiterario genero, double precio) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.editorial = editorial;
-        this.publicacion = publicacion;
-        this.genero = genero;
-        this.precio = precio;
-    }
-
+            public Libro(String titulo, Autor autor, Editorial editorial, int publicacion, GeneroLiterario genero,
+                double precio, int stock) {
+            this.titulo = titulo;
+            this.autor = autor;
+            this.editorial = editorial;
+            this.publicacion = publicacion;
+            this.genero = genero;
+            this.precio = precio;
+            this.stock = stock;
+        }
 
 
     @Override
@@ -105,6 +107,8 @@ public class Libro {
         result = prime * result + ((editorial == null) ? 0 : editorial.hashCode());
         return result;
     }
+
+
 
 
         @Override

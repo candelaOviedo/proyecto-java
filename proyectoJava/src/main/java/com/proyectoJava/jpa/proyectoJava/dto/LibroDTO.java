@@ -1,36 +1,19 @@
 package com.proyectoJava.jpa.proyectoJava.dto;
 
-import java.io.Serializable;
+import com.proyectoJava.jpa.proyectoJava.model.GeneroLiterario;
 
-public class LibroDTO implements Serializable {
+public class LibroDTO {
 
     private Long id;
-
     private String titulo;
+    private String autorNombre;
+    private String autorApellido;
+    private String editorialNombre;
+    private int publicacion;
+    private GeneroLiterario genero;
+    private double precio;
 
-    private String autor;
-
-    private String editorial;
-
-    private String publicacion;
-
-    private String genero;
-
-    private Double precio;
-
-    public LibroDTO(String titulo, String autor, String editorial, String publicacion, String genero, Double precio) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.editorial = editorial;
-        this.publicacion = publicacion;
-        this.genero = genero;
-        this.precio = precio;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -39,48 +22,59 @@ public class LibroDTO implements Serializable {
         this.id = id;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getAutorNombre() {
+        return autorNombre;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setAutorNombre(String autorNombre) {
+        this.autorNombre = autorNombre;
     }
 
-    public String getEditorial() {
-        return editorial;
+    public String getAutorApellido() {
+        return autorApellido;
     }
 
-    public void setEditorial(String editorial) {
-        this.editorial = editorial;
+    public void setAutorApellido(String autorApellido) {
+        this.autorApellido = autorApellido;
     }
 
-    public String getPublicacion() {
+    public String getEditorialNombre() {
+        return editorialNombre;
+    }
+
+    public void setEditorialNombre(String editorialNombre) {
+        this.editorialNombre = editorialNombre;
+    }
+
+    public int getPublicacion() {
         return publicacion;
     }
 
-    public void setPublicacion(String publicacion) {
+    public void setPublicacion(int publicacion) {
         this.publicacion = publicacion;
     }
 
-    public String getGenero() {
+    public GeneroLiterario getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(GeneroLiterario genero) {
         this.genero = genero;
     }
 
-    public Double getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
-
 }

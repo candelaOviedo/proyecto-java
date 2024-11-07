@@ -22,12 +22,13 @@ public class Compra {
 
     @ManyToMany
     @JoinTable(
-      name = "compra_libro",
-      joinColumns = @JoinColumn(name = "compra_id"),
-      inverseJoinColumns = @JoinColumn(name = "libro_id")
+        name = "compra_libro",
+        joinColumns = @JoinColumn(name = "compra_id"),
+        inverseJoinColumns = @JoinColumn(name = "libro_id")
     )
     private List<Libro> libros;
 
     private LocalDate fecha;
+
     private double total;
 }

@@ -27,7 +27,6 @@ public class CompraService {
 
     // Realiza la compra
     public CompraDTO realizarCompra(CompraDTO compraDTO) {
-        // Verificar existencia de los libros
         List<Libro> libros = libroRepository.findAllById(compraDTO.getLibroIds());
         if (libros.isEmpty()) {
             throw new RuntimeException("Libros no encontrados");
@@ -39,7 +38,7 @@ public class CompraService {
         // Crear la entidad Compra
         Compra compra = compraMapper.toEntity(compraDTO);
         compra.setLibros(libros);
-        compra.setFecha(LocalDate.now());  // Fecha de la compra
+        compra.setFecha(LocalDate.now());
         compra.setTotal(total);
 
         // Guardar la compra
@@ -47,8 +46,8 @@ public class CompraService {
 
         // Reducir el stock de los libros
         for (Libro libro : libros) {
-            libro.setStock(libro.getStock() - 1);  // Reducir stock
-            libroRepository.save(libro);  // Actualizar stock
+            libro.setStock(libro.getStock() - 1);
+            libroRepository.save(libro);
         }
 
         return compraMapper.toDTO(compraGuardada);

@@ -48,4 +48,13 @@ public class AutorService {
     public void eliminar(Long id) {
         autorRepository.deleteById(id);
     }
+
+        // Buscar autor por nombre y apellido
+        public Autor findByNombreAndApellido(String nombre, String apellido) {
+            Optional<Autor> autor = autorRepository.findByNombreAndApellido(nombre, apellido);
+            if (autor.isPresent()) {
+                return autor.get();
+            }
+            throw new RuntimeException("Autor no encontrado");
+        }
 }

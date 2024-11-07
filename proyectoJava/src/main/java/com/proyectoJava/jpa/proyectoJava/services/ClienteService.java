@@ -14,32 +14,52 @@ import java.util.stream.Collectors;
 @Service
 public class ClienteService {
 
-    private final ClienteRepository clienteRepository;
-    private final ClienteMapper clienteMapper;
-    private final RestTemplate restTemplate;
-    private final String apiUrl = "https://jsonplaceholder.typicode.com/users";
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    public ClienteService(ClienteRepository clienteRepository, ClienteMapper clienteMapper, RestTemplate restTemplate) {
-        this.clienteRepository = clienteRepository;
-        this.clienteMapper = clienteMapper;
-        this.restTemplate = restTemplate;
+    private ClienteMapper clienteMapper;
+
+
+    // Obtener todos los clientes desde la API externa
+    public List<ClienteDTO> obtenerClientesDesdeAPI() {
+        RestTemplate restTemplate = new RestTemplate();
+        Cliente[] clientesArray = restTemplate.getForObject("https://jsonplaceholder.typicode.com/users", Cliente[].class);
+
+        return List.of(clientesArray).stream()
+        .map(clienteMapper::toDTO)
+        .collect(Collectors.toList());
     }
 
-    public List<ClienteDTO> obtenerClientesDesdeAPI() {
-        ClienteDTO[] clientesApi = restTemplate.getForObject(apiUrl, ClienteDTO[].class);
-        List<Cliente> clientes = List.of(clientesApi).stream()
-                                      .map(clienteMapper::toEntity)
-                                      .collect(Collectors.toList());
-        clienteRepository.saveAll(clientes); // Guarda en base de datos local
-        return clientes.stream()
-                       .map(clienteMapper::toDTO)
-                       .collect(Collectors.toList());
-    }
-    
+    // Obtener un cliente por ID
     public ClienteDTO obtenerClientePorId(Long id) {
-        return clienteRepository.findById(id)
-                .map(clienteMapper::toDTO)
-                .orElse(null);
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        return clienteMapper.toDTO(cliente);
+    }
+    // Crear un nuevo cliente
+    public ClienteDTO crear(ClienteDTO clienteDTO) {
+        Cliente cliente = clienteMapper.toEntity(clienteDTO);
+        cliente = clienteRepository.save(cliente);  
+        return clienteMapper.toDTO(cliente);
+    }
+
+    // Actualizar un cliente existente
+    public ClienteDTO actualizar(Long id, ClienteDTO clienteDTO) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+
+        cliente.setNombre(clienteDTO.getNombre());
+        cliente.setApellido(clienteDTO.getApellido());
+        cliente.setEmail(clienteDTO.getEmail());
+
+        cliente = clienteRepository.save(cliente); 
+        return clienteMapper.toDTO(cliente);
+    }
+
+    // Eliminar un cliente por ID
+    public void eliminar(Long id) {
+        clienteRepository.deleteById(id);
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AutorMapper {
 
-    // Convierte de entidad Autor a DTO
     public AutorDTO toDTO(Autor autor) {
         AutorDTO autorDTO = new AutorDTO();
         autorDTO.setId(autor.getId());
@@ -18,7 +17,6 @@ public class AutorMapper {
         return autorDTO;
     }
 
-    // Convierte de DTO a entidad Autor
     public Autor toEntity(AutorDTO autorDTO) {
         Autor autor = new Autor();
         autor.setId(autorDTO.getId());

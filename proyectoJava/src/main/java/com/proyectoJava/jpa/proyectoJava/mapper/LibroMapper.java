@@ -1,7 +1,11 @@
 package com.proyectoJava.jpa.proyectoJava.mapper;
 
 import com.proyectoJava.jpa.proyectoJava.dto.LibroDTO;
+import com.proyectoJava.jpa.proyectoJava.model.Autor;
+import com.proyectoJava.jpa.proyectoJava.model.Editorial;
 import com.proyectoJava.jpa.proyectoJava.model.Libro;
+import com.proyectoJava.jpa.proyectoJava.services.AutorService;
+import com.proyectoJava.jpa.proyectoJava.services.EditorialService;
 
 public class LibroMapper {
 
@@ -18,11 +22,27 @@ public class LibroMapper {
         return dto;
     }
 
-    public static Libro toEntity(LibroDTO dto) {
+    public static Libro toEntity(LibroDTO dto, AutorService autorService, EditorialService editorialService) {
         Libro libro = new Libro();
         libro.setId(dto.getId());
         libro.setTitulo(dto.getTitulo());
-        // Aquí debes cargar los objetos `Autor` y `Editorial` según el contexto.
+
+        // Buscar el autor por nombre y apellido
+        if (dto.getAutorNombre() != null && dto.getAutorApellido() != null) {
+            Autor autor = autorService.findByNombreAndApellido(dto.getAutorNombre(), dto.getAutorApellido());
+            libro.setAutor(autor);
+        }
+
+        // Buscar la editorial por nombre
+        if (dto.getEditorialNombre() != null) {
+            Editorial editorial = editorialService.findByNombre(dto.getEditorialNombre());
+            libro.setEditorial(editorial);
+        }
+
+        libro.setPublicacion(dto.getPublicacion());
+        libro.setGenero(dto.getGenero());
+        libro.setPrecio(dto.getPrecio());
+
         return libro;
     }
 }

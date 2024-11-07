@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class EditorialMapper {
 
-    // Convierte de entidad Editorial a DTO
     public EditorialDTO toDTO(Editorial editorial) {
         EditorialDTO dto = new EditorialDTO();
         dto.setId(editorial.getId());
@@ -18,7 +17,6 @@ public class EditorialMapper {
         return dto;
     }
 
-    // Convierte de DTO a entidad Editorial
     public Editorial toEntity(EditorialDTO dto) {
         Editorial editorial = new Editorial();
         editorial.setId(dto.getId());
